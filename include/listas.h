@@ -1,6 +1,8 @@
 #ifndef LISTAS_H
 #define LISTAS_H
 
+#include "mytree.h"
+
 typedef struct listas{
 	int size;
 	int ocup;

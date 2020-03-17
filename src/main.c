@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "mytree.h"
 #include "listas.h"
 #include "vendas.h"
 
 #define MAX 64
+
 
 int myCompare (const void * a, const void * b ) { // a e b são apontadores para alguma coisa (void)
     const char *pa = *(const char**)a;
@@ -70,7 +72,7 @@ int main (){
 	//printf("%d\n",vendas.ocup );
 	file = fopen("../DadosIniciais/Vendas_1MValidas.txt","w");
 	for(i = 0;i<vendas.ocup;i++){
-		fprintf(file, "%s %f %d %c %s %d %d\n",
+		fprintf(file, "%s %.2f %d %c %s %d %d\n",
 			vendas.vendas[i].prod,
 			vendas.vendas[i].preco,
 			vendas.vendas[i].unidades,
@@ -80,4 +82,16 @@ int main (){
 			vendas.vendas[i].filial);
 	}
 	fclose(file);
+	AVL *arvoreVendas = NULL;
+	AVL *aux = NULL;
+	for(i = 0;i<vendas.ocup;i++){
+		arvoreVendas = insert(arvoreVendas,vendas.vendas[i].cliente,(VENDA *)&vendas.vendas[i]);
+	}
+	char *cl = "L4892";
+	printf("%d\n",searchAVL(arvoreVendas,cl));
+	aux = arvoreVendas;
+	while(aux->right!= NULL)
+		aux = aux->right;
+	char *clies = ((struct venda *)aux->str[0])->cliente;
+	printf("%s\n",clies);
 }

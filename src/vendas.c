@@ -1,5 +1,6 @@
 #include "listas.h"
 #include "vendas.h"
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -39,7 +40,7 @@ int searchMatch(LISTAS *lista,int l, int r,char *str){
 
 void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 	char *prod,*cliente,tipo,*p;
-	float preco;
+	double preco;
 	int unidades,mes,filial;
 	p = strtok(linha," ");
 	prod = strdup(p);
@@ -67,3 +68,4 @@ void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 		vendas->ocup++;
 	}
 }
+

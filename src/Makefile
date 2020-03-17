@@ -3,12 +3,11 @@ CC=gcc
 CFLAGS=-I$(IDIR)
 
 ODIR=obj
-LDIR =../lib
 
-_DEPS = vendas.h listas.h
+_DEPS = vendas.h listas.h mytree.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o listas.o vendas.o 
+_OBJ = main.o listas.o vendas.o mytree.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
