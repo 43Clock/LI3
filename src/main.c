@@ -4,6 +4,7 @@
 #include "mytree.h"
 #include "listas.h"
 #include "vendas.h"
+#include "faturas.h"
 
 #define MAX 64
 
@@ -20,7 +21,8 @@ int myCompare (const void * a, const void * b ) { // a e b são apontadores para
 int main (){
 	FILE *file;
 	int i,nclientes = 0,nprodutos = 0;
-	file = fopen("../DadosIniciais/Clientes.txt","r");
+	file = fopen("/home/luis43/Aulas/LI3/Aula1"
+              "/DadosIniciais/Clientes.txt","r");
 	char test[MAX];
 
 	LISTAS clientes,produtos;
@@ -28,41 +30,37 @@ int main (){
 
 	//Ciclo que percorre o ficheiro de clientes e colocaos todos num array
 	while(fgets(test,MAX,file)!= NULL){
-		if(!checkClientes(test)){
-			puts("Ficheiro Invalido");
-			return -1;
+		if(checkClientes(test)){
+			filterStr(test);
+			if(clientes.size == clientes.ocup) reallocLista(&clientes);
+			addLista(&clientes,test);
+			nclientes++;
 		}
-		filterStr(test);
-		if(clientes.size == clientes.ocup) reallocLista(&clientes);
-		addLista(&clientes,test);
-		nclientes++;
 	}
 	//Sorting 
 	qsort(clientes.listas,nclientes,sizeof(char*),myCompare);
 	
 
 	fclose(file);
-	file = fopen("../DadosIniciais/Produtos.txt","r");
+	file = fopen("/home/luis43/Aulas/LI3/Aula1/DadosIniciais/Produtos.txt","r");
 	initLista(&produtos);
 
 	//Ciclo que percorre o ficheiro de clientes e colocaos todos num array
 	while(fgets(test,MAX,file)!= NULL){
-		if(!checkProdutos(test)){
-			puts("Ficheiro Invalido");
-			//return -1;
+		if(checkProdutos(test)){
+			filterStr(test);
+			if(produtos.size == produtos.ocup) reallocLista(&produtos);
+			addLista(&produtos,test);
+			nprodutos++;
 		}
-		filterStr(test);
-		if(produtos.size == produtos.ocup) reallocLista(&produtos);
-		addLista(&produtos,test);
-		nprodutos++;
 	}
 	//Sorting 
 	qsort(produtos.listas,nprodutos,sizeof(char *),myCompare);
-
 	fclose(file);
+	
 	VENDAS vendas; 
 	initVendas(&vendas);
-	fopen("../DadosIniciais/Vendas_1M.txt","r");
+	file =  fopen("/home/luis43/Aulas/LI3/Aula1/DadosIniciais/Vendas_1M.txt","r");
 	while(fgets(test,MAX,file)!=NULL){
 		filterStr(test);
 		if(vendas.size == vendas.ocup) reallocVendas(&vendas);
@@ -70,7 +68,7 @@ int main (){
 	}
 	fclose(file);
 	//printf("%d\n",vendas.ocup );
-	file = fopen("../DadosIniciais/Vendas_1MValidas.txt","w");
+	file = fopen("/home/luis43/Aulas/LI3/Aula1/DadosIniciais/Vendas_1MValidas.txt","w");
 	for(i = 0;i<vendas.ocup;i++){
 		fprintf(file, "%s %.2f %d %c %s %d %d\n",
 			vendas.vendas[i].prod,
@@ -82,16 +80,26 @@ int main (){
 			vendas.vendas[i].filial);
 	}
 	fclose(file);
-	AVL *arvoreVendas = NULL;
+
+	/*AVL *arvoreVendas = NULL;
 	AVL *aux = NULL;
 	for(i = 0;i<vendas.ocup;i++){
 		arvoreVendas = insert(arvoreVendas,vendas.vendas[i].cliente,(VENDA *)&vendas.vendas[i]);
 	}
-	char *cl = "L4892";
+	char *cl = "L4891";
 	printf("%d\n",searchAVL(arvoreVendas,cl));
 	aux = arvoreVendas;
 	while(aux->right!= NULL)
 		aux = aux->right;
 	char *clies = ((struct venda *)aux->str[0])->cliente;
-	printf("%s\n",clies);
+	printf("%s\n",clies);*/
+
+	Faturas *fat = initFaturas();
+	for(i = 0;i<vendas.ocup;i++){
+		addVendaToFaturas(fat,&vendas.vendas[i]);
+	}
+    calculaValoresFaturas(fat);
+	char *prods = "NR1091";
+	Fatura *f = getFatura(fat,prods);
+	printf("%f\n %d",calculaTotalFaturado(fat),calculaTotalVendido(fat));
 }
