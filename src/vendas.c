@@ -1,5 +1,5 @@
-#include "listas.h"
 #include "vendas.h"
+#include "mytree.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -69,3 +69,38 @@ void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 	}
 }
 
+char *getClienteVenda(VENDA *v){
+	char *aux = malloc(strlen(v->cliente)+1);
+	strcpy(aux,v->cliente);
+	return aux;
+}
+
+char *getProdVenda(VENDA *v){
+	//char *aux = malloc(strlen(v->prod)+1);
+	//strcpy(aux,v->prod);
+	return v->prod;
+}
+
+int getMesVenda(VENDA *v){
+	return v->mes;
+}
+
+int getQuantVenda(VENDA *v){
+	return v->unidades;
+}
+
+int getFilialVenda(VENDA *v){
+	return v->filial;
+}
+
+int getTipoVenda(VENDA *v){
+	return (v->tipo == 'N')?0:1;
+}
+
+double getPrecoVenda(VENDA *v){
+	return v->preco;
+}
+
+double getTotalVenda(VENDA *v){
+	return v->preco*v->unidades;
+}
