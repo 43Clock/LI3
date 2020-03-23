@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "mytree.h"
 #include "listas.h"
 #include "vendas.h"
 #include "faturas.h"
+#include "filial.h"
 
 #define MAX 64
 
@@ -18,11 +20,12 @@ int myCompare (const void * a, const void * b ) { // a e b são apontadores para
     return strcmp(pa,pb);
 }
 
+
+
 int main (){
 	FILE *file;
 	int i,nclientes = 0,nprodutos = 0;
-	file = fopen("/home/luis43/Aulas/LI3/Aula1"
-              "/DadosIniciais/Clientes.txt","r");
+	file = fopen("/home/luis43/Aulas/LI3/Aula1/DadosIniciais/Clientes.txt","r");
 	char test[MAX];
 
 	LISTAS clientes,produtos;
@@ -80,26 +83,28 @@ int main (){
 			vendas.vendas[i].filial);
 	}
 	fclose(file);
-
-	/*AVL *arvoreVendas = NULL;
+	clock_t start,end;
+	start = clock();
+	AVL *arvoreVendas = NULL;
 	AVL *aux = NULL;
 	for(i = 0;i<vendas.ocup;i++){
-		arvoreVendas = insert(arvoreVendas,vendas.vendas[i].cliente,(VENDA *)&vendas.vendas[i]);
+		arvoreVendas = insert(arvoreVendas,vendas.vendas[i].prod,(VENDA *)&vendas.vendas[i]);
 	}
-	char *cl = "L4891";
-	printf("%d\n",searchAVL(arvoreVendas,cl));
-	aux = arvoreVendas;
-	while(aux->right!= NULL)
-		aux = aux->right;
-	char *clies = ((struct venda *)aux->str[0])->cliente;
-	printf("%s\n",clies);*/
+	end = clock();
+	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));
 
-	Faturas *fat = initFaturas();
+	LISTAS bipbop;
+	initLista(&bipbop);
+	listaProdNcomprados(arvoreVendas,3,&produtos,&bipbop);
+	printf("%d\n",bipbop.ocup);
+
+
+	/*Faturas *fat = initFaturas();
 	for(i = 0;i<vendas.ocup;i++){
 		addVendaToFaturas(fat,&vendas.vendas[i]);
 	}
     calculaValoresFaturas(fat);
 	char *prods = "NR1091";
 	Fatura *f = getFatura(fat,prods);
-	printf("%f\n %d",calculaTotalFaturado(fat),calculaTotalVendido(fat));
+	printf("%f\n %d",calculaTotalFaturado(fat),calculaTotalVendido(fat));*/
 }
