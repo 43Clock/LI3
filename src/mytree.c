@@ -1,8 +1,7 @@
-#include "mytree.h"
 #include "vendas.h"
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
+
 
 #define MAX(a,b) a>b? a:b;
 
@@ -12,8 +11,8 @@ int altura (AVL *a){
 }
 
 AVL* novoNode(char *key,void *inst){
-	AVL *node = malloc(sizeof(struct AVBin));
-	node->key = key;
+	AVL *node = (struct AVBin*)malloc(sizeof(struct AVBin));
+	node->key = strdup(key);
 	node->str = malloc(sizeof(void *));
 	node->str[0] = inst;
 	node->left = NULL;
@@ -22,6 +21,7 @@ AVL* novoNode(char *key,void *inst){
 	node->numElemts = 1;
 	return node;
 }
+
 
 AVL* addToNode(AVL *node,void *inst){
 	node->str = realloc(node->str,sizeof(void*)*(node->numElemts+1));
@@ -91,10 +91,16 @@ AVL* insert(AVL *node,char *key,void *inst){
 	return node;
 }
 
-int searchAVL(AVL *node,void *key){
+int searchAVL(AVL *node,char *key){
 	if(!node) return 0;
 	if(strcmp(node->key,key) == 0) return 1;
 	if(strcmp(node->key,key)<0) return searchAVL(node->right,key);
 	return searchAVL(node->left,key);
+}
+
+int numNodos(AVL *node){
+    if(node)
+        return 1+numNodos(node->left)+numNodos(node->right);
+    return 0;
 }
 

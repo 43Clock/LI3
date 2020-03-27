@@ -14,6 +14,11 @@ Filiais *initFiliais(){
 	return f;
 }
 
+void addVendaToFilial(VENDA *v,Filiais *f){
+    f->cliVendas = insert(f->cliVendas,v->cliente,v);
+    f->prodVendas = insert(f->prodVendas,v->prod,v);
+}
+
 void listaProdNcomprados(AVL* produtos,int filial,LISTAS *prod,LISTAS *res){
     AVL *aux;
     int flag = 0;

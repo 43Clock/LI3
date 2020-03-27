@@ -1,8 +1,6 @@
 #ifndef MYTREE_H
 #define MYTREE_H
 
-#include "vendas.h"
-
 typedef struct AVBin { 
     char* key;
     void **str; 
@@ -13,6 +11,9 @@ typedef struct AVBin {
 }AVL;
 
 AVL* insert(AVL *node,char *key,void *inst);
-int searchAVL(AVL *node,void *cliente);
+AVL* insertNonGrowing(AVL *node,char *key,void *inst);
+int searchAVL(AVL *node,char *cliente);
+int numNodos(AVL *node);
+int getBalance(AVL *a);
 
 #endif

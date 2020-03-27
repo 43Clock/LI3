@@ -7,22 +7,14 @@
 #include "vendas.h"
 #include "faturas.h"
 #include "filial.h"
+#include "view.h"
+
+#include "sgv.h"
 
 #define MAX 64
 
 
-int myCompare (const void * a, const void * b ) { // a e b são apontadores para alguma coisa (void)
-    const char *pa = *(const char**)a;
-    				  // Esta parte que dizer um apontador para uma string(por exemplo char *a),
-    				 // mas tem de ter ** por o a ja é um apontador
-    const char *pb = *(const char**)b;
-
-    return strcmp(pa,pb);
-}
-
-
-
-int main (){
+/*int main (){
 	FILE *file;
 	int i,nclientes = 0,nprodutos = 0;
 	file = fopen("/home/luis43/Aulas/LI3/Aula1/DadosIniciais/Clientes.txt","r");
@@ -93,18 +85,23 @@ int main (){
 	end = clock();
 	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));
 
-	LISTAS bipbop;
+	/*LISTAS bipbop;
 	initLista(&bipbop);
 	listaProdNcomprados(arvoreVendas,3,&produtos,&bipbop);
-	printf("%d\n",bipbop.ocup);
+	printf("%d\n",bipbop.ocup);*/
 
+	/*printMenuPaginas(clientes.listas,clientes.ocup,10,5);
 
-	/*Faturas *fat = initFaturas();
+	Faturas *fat = initFaturas();
 	for(i = 0;i<vendas.ocup;i++){
 		addVendaToFaturas(fat,&vendas.vendas[i]);
 	}
     calculaValoresFaturas(fat);
-	char *prods = "NR1091";
-	Fatura *f = getFatura(fat,prods);
-	printf("%f\n %d",calculaTotalFaturado(fat),calculaTotalVendido(fat));*/
+	
+	Fatura *f = getFatura(fat,"NR1091");
+	printf("%f\n %d",calculaTotalFaturado(fat),calculaTotalVendido(fat));
+}*/
+
+int main(){
+	SGV *sgv = initSGV();
 }

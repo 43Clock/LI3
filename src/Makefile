@@ -4,10 +4,10 @@ CFLAGS=-I$(IDIR)
 
 ODIR=obj
 
-_DEPS = vendas.h listas.h mytree.h fatura.h faturas.h filial.h view.h
+_DEPS = vendas.h listas.h mytree.h fatura.h faturas.h filial.h view.h sgv.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o listas.o vendas.o mytree.o fatura.o faturas.o filial.o view.o
+_OBJ = main.o listas.o vendas.o mytree.o fatura.o faturas.o filial.o view.o sgv.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

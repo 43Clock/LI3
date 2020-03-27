@@ -45,7 +45,7 @@ void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 	p = strtok(linha," ");
 	prod = strdup(p);
 	p = strtok(NULL," ");
-	preco = atof(p);
+	preco = (double)atof(p);
 	p = strtok(NULL," ");
 	unidades = atoi(p);
 	p = strtok(NULL," ");
@@ -67,6 +67,39 @@ void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 		vendas->vendas[vendas->ocup].filial = filial;
 		vendas->ocup++;
 	}
+}
+
+VENDA* createVenda(char *linha, LISTAS *clientes, LISTAS *prodts){
+	char *prod,*cliente,tipo,*p;
+	double preco;
+	int unidades,mes,filial;
+	p = strtok(linha," ");
+	prod = strdup(p);
+	p = strtok(NULL," ");
+	preco = (double)atof(p);
+	p = strtok(NULL," ");
+	unidades = atoi(p);
+	p = strtok(NULL," ");
+	tipo = p[0];
+	p = strtok(NULL," ");
+	cliente = strdup(p);
+	p = strtok(NULL," ");
+	mes = atoi(p);
+	p = strtok(NULL," ");
+	filial = atoi(p);
+
+	if((searchMatch(clientes,0,clientes->ocup-1,cliente) !=-1)  && (searchMatch(prodts,0,prodts->ocup-1,prod)!=-1)){
+		VENDA *venda = malloc(sizeof(VENDA));
+		venda->prod = prod;
+		venda->preco = preco;
+		venda->unidades = unidades;
+		venda->tipo = tipo;
+		venda->cliente = cliente;
+		venda->mes = mes;
+		venda->filial = filial;
+		return venda;
+	}
+	return NULL;
 }
 
 char *getClienteVenda(VENDA *v){

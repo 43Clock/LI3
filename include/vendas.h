@@ -25,6 +25,8 @@ typedef struct vendas{
 void initVendas(VENDAS *vendas);
 void reallocVendas(VENDAS *vendas);
 void addVenda(VENDAS *vendas,char *linha,LISTAS *cliente,LISTAS *prod);
+VENDA* createVenda(char *linha, LISTAS *clientes, LISTAS *prodts);
+
 void filterStr(char *str);
 char *getClienteVenda(VENDA *v);
 

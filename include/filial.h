@@ -8,5 +8,7 @@
 typedef struct filiais Filiais;
 
 void listaProdNcomprados(AVL* produtos,int filial,LISTAS *prod,LISTAS *res);
+void addVendaToFilial(VENDA *v,Filiais *f);
+Filiais *initFiliais();
 
 #endif
