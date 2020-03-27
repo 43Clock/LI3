@@ -23,11 +23,13 @@ int checkProdutos(char *test){
 	return 1;
 }
 
-void initLista(LISTAS *listas){
+LISTAS* initLista(){
+	LISTAS *listas = malloc(sizeof(LISTAS));
 	listas->size = 1;
 	listas->ocup = 0;
 	char **tmp = malloc(listas->size*sizeof(char*));
 	listas->listas = tmp;
+	return listas;
 }
 
 void reallocLista(LISTAS *lista){
@@ -38,7 +40,6 @@ void reallocLista(LISTAS *lista){
 	free(lista->listas);
 	lista->listas = tmp;
 	lista->size *=2;
-	//lista -> listas = realloc(lista->listas,lista->size*sizeof(struct lista));
 }
 
 void addLista(LISTAS *lista,char *str){

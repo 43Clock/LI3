@@ -11,7 +11,7 @@ typedef struct listas{
 
 int checkClientes(char *test);
 int checkProdutos(char *test);
-void initLista(LISTAS *lista);
+LISTAS* initLista();
 void reallocLista(LISTAS *lista);
 void addLista(LISTAS *lista,char *str);
 void filterStr(char *str);
