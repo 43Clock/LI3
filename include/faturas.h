@@ -11,5 +11,6 @@ int calculaTotalVendido(Faturas *f);
 double calculaTotalFaturado(Faturas *f);
 void calculaValoresFaturas(Faturas *f);
 Fatura *getFatura(Faturas *f,char *produto);
+void freeFaturas(Faturas *f);
 
 #endif

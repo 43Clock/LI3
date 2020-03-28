@@ -19,12 +19,12 @@ void addVendaToFilial(VENDA *v,Filiais *f){
     f->prodVendas = insert(f->prodVendas,v->prod,v);
 }
 
-void listaProdNcomprados(AVL* produtos,int filial,LISTAS *prod,LISTAS *res){
+void listaProdNcomprados(Filiais* f,int filial,LISTAS *prod,LISTAS *res){
     AVL *aux;
     int flag = 0;
     if(filial == 0){//Caso em que só queremos ver se o prod foi comprado ou não
         for(int i = 0;i<prod->ocup;i++){
-            if(!searchAVL(produtos,prod->listas[i])){
+            if(!searchAVL(f->prodVendas,prod->listas[i])){
                 if(res->size == res->ocup) reallocLista(res);
                 addLista(res,prod->listas[i]);
             }
@@ -32,12 +32,12 @@ void listaProdNcomprados(AVL* produtos,int filial,LISTAS *prod,LISTAS *res){
     }
     else{
         for(int i = 0;i<prod->ocup;i++){
-            if(!searchAVL(produtos,prod->listas[i])){
+            if(!searchAVL(f->prodVendas,prod->listas[i])){
                 if(res->size == res->ocup) reallocLista(res);
                 addLista(res,prod->listas[i]);
             }
             else{
-                aux = produtos;
+                aux = f->prodVendas;
                 flag = 0;
                 while(strcmp(aux->key,prod->listas[i])!=0){
                     if(strcmp(prod->listas[i],aux->key)>0) aux = aux->right;
@@ -54,4 +54,12 @@ void listaProdNcomprados(AVL* produtos,int filial,LISTAS *prod,LISTAS *res){
             }
         }
     }
+}
+
+LISTAS *listaClientesTodosFliais(AVL *clientes){}
+
+void freeFiliais(Filiais *f){
+    freeAVL(f->cliVendas,freeVenda);
+    freeAVLsimple(f->prodVendas);
+    free(f);
 }

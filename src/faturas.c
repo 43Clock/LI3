@@ -83,3 +83,8 @@ Fatura *getFatura(Faturas *f,char *produto){
     }
     return aux->str[0];
 }
+
+void freeFaturas(Faturas *f){
+    freeAVL(f->avlF,free);
+    free(f);
+}

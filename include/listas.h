@@ -15,5 +15,7 @@ LISTAS* initLista();
 void reallocLista(LISTAS *lista);
 void addLista(LISTAS *lista,char *str);
 void filterStr(char *str);
+void freeLista(LISTAS *l);
+
 
 #endif

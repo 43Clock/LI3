@@ -137,3 +137,10 @@ double getPrecoVenda(VENDA *v){
 double getTotalVenda(VENDA *v){
 	return v->preco*v->unidades;
 }
+
+void freeVenda(void *v){
+	VENDA *vd = (VENDA *) v;
+	free(vd->cliente);
+	free(vd->prod);
+	free(v);
+}

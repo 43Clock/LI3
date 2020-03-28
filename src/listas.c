@@ -36,6 +36,7 @@ void reallocLista(LISTAS *lista){
 	char **tmp = malloc(2*lista->size*sizeof(char*));
 	for(int i = 0;i<lista->size;i++){
 		tmp[i] = strdup(lista->listas[i]);
+		free(lista->listas[i]);
 	}
 	free(lista->listas);
 	lista->listas = tmp;
@@ -51,4 +52,11 @@ void filterStr(char *str){
 	int i;
 	for(i = 0;str[i] != '\n' && str[i] != '\r';i++);
 	str[i] = '\0';
+}
+
+void freeLista(LISTAS *l){
+	for(int i = 0;i<l->ocup;i++)
+		free(l->listas[i]);
+	free(l->listas);
+	free(l);
 }

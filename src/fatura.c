@@ -31,17 +31,18 @@ void addFat(Fatura *f,VENDA *v){
 int getnumVendasFatura(Fatura *f,int filial,int mes,int tipo){
 	if(filial == 0) // É 0 quando se quer de todos os filiais
 		return f->numVendas[tipo][mes-1][0]+f->numVendas[tipo][mes-1][1]+f->numVendas[tipo][mes-1][2];
-	return f->numVendas[tipo][mes-1][filial];
+	return f->numVendas[tipo][mes-1][filial-1];
 }
 
 int getQuantFatura(Fatura *f,int filial){
 	if(filial == 0) // É 0 quando se quer de todos os filiais
 		return f->quantPorFilial[0]+f->quantPorFilial[1]+f->quantPorFilial[2];
-	return f->quantPorFilial[filial];
+	return f->quantPorFilial[filial-1];
 }
 
 double getFaturacaoFatura(Fatura *f,int filial,int mes,int tipo){
 	if(filial == 0) // É 0 quando se quer de todos os filiais
 		return f->fatTotal[tipo][mes-1][0]+f->fatTotal[tipo][mes-1][1]+f->fatTotal[tipo][mes-1][2];
-	return f->fatTotal[tipo][mes-1][filial];
+	return f->fatTotal[tipo][mes-1][filial-1];
 }
+

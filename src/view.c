@@ -70,3 +70,49 @@ void printMenuPaginas(char **str,int total,int nLinhas,int nColunas){
 		}
 	}
 }
+
+void printSeparador(int *sizeCols,int nColunas){
+	int j;
+	for(j = 0;j<=nColunas;j++){
+		printf("+");
+		replicar("-",sizeCols[j]);
+	}
+	printf("+\n");
+}
+
+void printTabela(const char *linhasTab[],const char *colunasTab[],int nLinhas, int nColunas,int dados[nLinhas][nColunas]){
+	int i,j,size = 0;
+	int sizeCols[nColunas+1];
+	memset(sizeCols,0,sizeof(int)*(nColunas+1));
+
+	//Ciclo para calcular o tamanho correto das colunas
+	for(i = 0;i<nLinhas;i++)
+		size = (size<(int)strlen(linhasTab[i]))?(int)strlen(linhasTab[i]):size;
+	sizeCols[0] = size+2;
+	for(j = 0;j<nColunas;j++){
+		sizeCols[j+1] = strlen(colunasTab[j])+2;
+		for(i = 0;i<nLinhas;i++)
+			sizeCols[j+1] = (sizeCols[j+1]< howManyDigits(dados[i][j])+2)?howManyDigits(dados[i][j])+2:sizeCols[j+1];
+	}
+
+	printSeparador(sizeCols,nColunas);
+	printf("|");
+	replicar(" ",sizeCols[0]);
+	for(j = 0;j<nColunas;j++){
+		printf("| %s",colunasTab[j]);
+		replicar(" ",sizeCols[j+1]-strlen(colunasTab[j])-1);
+	}
+	printf("|\n");
+	printSeparador(sizeCols,nColunas);
+
+	for(i = 0;i<nLinhas;i++){
+		printf("| %s",linhasTab[i]);
+		replicar(" ",sizeCols[0]-strlen(linhasTab[i])-1);
+		for(j = 0;j<nColunas;j++){
+			printf("| %d",dados[i][j]);
+			replicar(" ",sizeCols[j+1]-howManyDigits(dados[i][j]-1));
+		}
+		printf("|\n");
+		printSeparador(sizeCols,nColunas);
+	}
+}
