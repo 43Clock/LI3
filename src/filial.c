@@ -43,8 +43,8 @@ void listaProdNcomprados(Filiais* f,int filial,LISTAS *prod,LISTAS *res){
                     if(strcmp(prod->listas[i],aux->key)>0) aux = aux->right;
                     else aux = aux->left;
                 }
-                for(int j = 0;j<aux->numElemts && !flag;j++){
                     VENDA **x = (VENDA **)aux->str;
+                for(int j = 0;j<aux->numElemts && !flag;j++){
                     if(x[j]->filial == filial) flag = 1;
                 }
                 if(!flag){
@@ -56,7 +56,31 @@ void listaProdNcomprados(Filiais* f,int filial,LISTAS *prod,LISTAS *res){
     }
 }
 
-LISTAS *listaClientesTodosFliais(AVL *clientes){}
+void filialAllCheck(AVL *clientes,LISTAS *res){
+    if(clientes){
+        int f1 = 0,f2 = 0,f3 = 0;
+        AVL *aux = clientes;
+        VENDA **x = (VENDA **)aux->str;
+        for(int i = 0;i<clientes->numElemts && (!f1 || !f2 || !f3);i++){
+            if(x[i]->filial == 1) f1 = 1;
+            if(x[i]->filial == 2) f2 = 1;
+            if(x[i]->filial == 3) f3 = 1;
+        }
+        if(f1 && f2 && f3){
+            if(res->size == res->ocup) reallocLista(res);
+            addLista(res,aux->key);
+        }
+        filialAllCheck(aux -> left,res);
+        filialAllCheck(aux->right,res);
+    }
+}
+  
+//Função para a query 5  
+LISTAS *listaClientesTodosFliais(Filiais *f){ //Lista n ordenada é preciso dps usar o qsort no output
+    LISTAS *res = initLista();
+    filialAllCheck(f->cliVendas,res);
+    return res;
+}
 
 void freeFiliais(Filiais *f){
     freeAVL(f->cliVendas,freeVenda);

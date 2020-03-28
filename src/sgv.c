@@ -78,13 +78,17 @@ SGV *initSGV(){
 	printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
 
-	return sgv;
+
 	/*clock_t start,end;
 	start = clock();
 	
 	
+	
 	end = clock();
 	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));*/
+
+	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);	
+	return sgv;
 }
 
 void destroySGV(SGV *sgv){
