@@ -19,6 +19,26 @@ void addVendaToFilial(VENDA *v,Filiais *f){
     f->prodVendas = insert(f->prodVendas,v->prod,v);
 }
 
+int numProdNcomprados(Filiais *f,LISTAS *prod){
+    int res = 0;
+    for(int i = 0;i<prod->ocup;i++){
+        if(!searchAVL(f->prodVendas,prod->listas[i])){
+            res++;
+        }
+    }
+    return res;
+}
+
+int numCliNcompradores(Filiais *f,LISTAS *clientes){
+    int res = 0;
+    for(int i = 0;i<clientes->ocup;i++){
+        if(!searchAVL(f->cliVendas,clientes->listas[i])){
+            res++;
+        }
+    }
+    return res;
+}
+
 void listaProdNcomprados(Filiais* f,int filial,LISTAS *prod,LISTAS *res){
     AVL *aux;
     int flag = 0;

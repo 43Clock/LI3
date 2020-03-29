@@ -75,7 +75,7 @@ SGV *initSGV(){
 		}
 	}
 	calculaValoresFaturas(sgv->faturas);
-	printf("%f\n",calculaTotalFaturado(sgv->faturas));
+	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
 
 
@@ -89,6 +89,26 @@ SGV *initSGV(){
 
 	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);	
 	return sgv;
+}
+
+LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial){
+	LISTAS *res = initLista(); 
+	listaProdNcomprados(sgv->filiais,filial,sgv->produtos,res);
+	return res;
+}
+
+LISTAS *getSGVclientesTodosFiliais(SGV *sgv){
+	LISTAS *r = listaClientesTodosFliais(sgv->filiais);
+	qsort(r->listas,r->ocup,sizeof(char *),myCompare);
+	return r;
+}
+
+int getClientesNaoCompradores(SGV *sgv){
+	return numCliNcompradores(sgv->filiais,sgv->clientes);
+}
+
+int getProdutosNaoComprados(SGV *sgv){
+	return numProdNcomprados(sgv->filiais,sgv->produtos);
 }
 
 void destroySGV(SGV *sgv){

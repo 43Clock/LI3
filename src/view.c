@@ -41,14 +41,14 @@ void printStrings(char **str,int total,int nLinhas,int nColunas,int pagina){
 	replicar("\n",nLinhas-r+2);
 }
 
-void printMenuPaginas(char **str,int total,int nLinhas,int nColunas){
+void printMenuPaginas(char *titulo,char **str,int total,int nLinhas,int nColunas){
 	char option;
 	int page = 0;
 
 	int nPaginas = (total%(nLinhas*nColunas))?(total/(nLinhas*nColunas)):total/(nColunas*nLinhas)-1;
 	while(1){
 		system("clear");
-		//printf("%s\n", ); mete o titulo
+		printf(BOLDWHITE "\t-- %s --\n\n" RESET,titulo); 
 		printf("Total: %d\n",total);
 		printStrings(str,total,nLinhas,nColunas,page);
 		printf("\t%d/%d [(n)ext/(p)revious/(b)ack)]\n",page+1,nPaginas+1);
