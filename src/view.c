@@ -29,7 +29,7 @@ void printStrings(char **str,int total,int nLinhas,int nColunas,int pagina){
 	int i,j,pos,r  = 0;
 
 	for(i = nLinhas*pagina;i<nLinhas*(pagina+1);i++){
-		for(j = 0;j<nColunas;j++){
+		for(j = 0;j<nColunas && j+i*nColunas<total;j++){
 			pos = j+i*nColunas;
 			printf("%d.",pos+1);
 			replicar(" ",howManyDigits(total)+1-howManyDigits(pos+1));
