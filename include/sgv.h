@@ -7,14 +7,12 @@
 #include "sgv.h"
 #include "faturas.h"
 #include "filial.h"
-#include "view.h"
 
 #define MAX 64
 
 typedef struct sgv SGV;
 
 SGV *initSGV();
-void destroySGV(SGV *sgv);
 
 
 

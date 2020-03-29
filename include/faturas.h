@@ -11,6 +11,11 @@ int calculaTotalVendido(Faturas *f);
 double calculaTotalFaturado(Faturas *f);
 void calculaValoresFaturas(Faturas *f);
 Fatura *getFatura(Faturas *f,char *produto);
-void freeFaturas(Faturas *f);
+int getSalesMes(AVL *f,int mes);
+int getProductSales(Faturas *f, char *prod, int mes);
+int getProductSalesaux (AVL *f, char *prod, int mes);
+double getProfitMes(AVL *f, int mes);
+double getProductProfit(Faturas *f, char *prod, int mes);
+double getProductProfitaux (AVL *f, char *prod, int mes);
 
 #endif

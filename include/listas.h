@@ -15,7 +15,6 @@ LISTAS* initLista();
 void reallocLista(LISTAS *lista);
 void addLista(LISTAS *lista,char *str);
 void filterStr(char *str);
-void freeLista(LISTAS *l);
-
+int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra);
 
 #endif
