@@ -7,13 +7,23 @@
 #include "sgv.h"
 #include "faturas.h"
 #include "filial.h"
+#include "view.h"
 
 #define MAX 64
 
 typedef struct sgv SGV;
 
 SGV *initSGV();
+void destroySGV(SGV *sgv);
 
+
+
+
+LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial);//Query 4
+LISTAS *getSGVclientesTodosFiliais(SGV *sgv);//Query 5
+
+int getClientesNaoCompradores(SGV *sgv);
+int getProdutosNaoComprados(SGV *sgv);
 
 
 #endif

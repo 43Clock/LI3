@@ -64,8 +64,6 @@ SGV *initSGV(){
 	sgv->faturas = initFaturas();
 	sgv->filiais = initFiliais();
 
-	clock_t start,end;
-	start = clock();
 	file =  fopen("../DadosIniciais/Vendas_1M.txt","r");
 	while(fgets(test,MAX,file)!=NULL){
 		filterStr(test);
@@ -77,16 +75,26 @@ SGV *initSGV(){
 		}
 	}
 	calculaValoresFaturas(sgv->faturas);
-
-	int t = getProductSales(sgv->faturas,"GI1298",2);
-	printf("%d\n",t);
-
-	double d = getProductProfit(sgv->faturas,"GI1298",2);
-	printf("%lf\n",d);
-
-	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
-	end = clock();
-	//printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));
+	printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
+
+
+	/*clock_t start,end;
+	start = clock();
 	
+	
+	
+	end = clock();
+	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));*/
+
+	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);	
+	return sgv;
+}
+
+void destroySGV(SGV *sgv){
+	freeLista(sgv->clientes);
+	freeLista(sgv->produtos);
+	freeFaturas(sgv->faturas);
+	freeFiliais(sgv->filiais);
+	free(sgv);
 }

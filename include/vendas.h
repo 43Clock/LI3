@@ -44,5 +44,7 @@ double getPrecoVenda(VENDA *v);
 
 double getTotalVenda(VENDA *v);
 
+void freeVenda(void *v);
+
 
 #endif

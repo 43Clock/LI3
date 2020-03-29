@@ -104,4 +104,5 @@
 
 int main(){
 	SGV *sgv = initSGV();
+	destroySGV(sgv);
 }
