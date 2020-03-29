@@ -36,7 +36,6 @@ void reallocLista(LISTAS *lista){
 	char **tmp = malloc(2*lista->size*sizeof(char*));
 	for(int i = 0;i<lista->size;i++){
 		tmp[i] = strdup(lista->listas[i]);
-		free(lista->listas[i]);
 	}
 	free(lista->listas);
 	lista->listas = tmp;
@@ -54,9 +53,12 @@ void filterStr(char *str){
 	str[i] = '\0';
 }
 
-void freeLista(LISTAS *l){
-	for(int i = 0;i<l->ocup;i++)
-		free(l->listas[i]);
-	free(l->listas);
-	free(l);
+int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra) {
+    for(int i=0; i < prod->ocup; i++){
+    	if(prod->listas[i][0]==letra){
+    		if(res->ocup==res->size) reallocLista(res);
+    		addLista(res, prod->listas[i]);
+    	}
+    }
+    return res->ocup;
 }

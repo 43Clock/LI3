@@ -64,6 +64,8 @@ SGV *initSGV(){
 	sgv->faturas = initFaturas();
 	sgv->filiais = initFiliais();
 
+	clock_t start,end;
+	start = clock();
 	file =  fopen("../DadosIniciais/Vendas_1M.txt","r");
 	while(fgets(test,MAX,file)!=NULL){
 		filterStr(test);
@@ -75,46 +77,16 @@ SGV *initSGV(){
 		}
 	}
 	calculaValoresFaturas(sgv->faturas);
+
+	int t = getProductSales(sgv->faturas,"GI1298",2);
+	printf("%d\n",t);
+
+	double d = getProductProfit(sgv->faturas,"GI1298",2);
+	printf("%lf\n",d);
+
 	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
-	fclose(file);
-
-
-	/*clock_t start,end;
-	start = clock();
-	
-	
-	
 	end = clock();
-	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));*/
-
-	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);	
-	return sgv;
-}
-
-LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial){
-	LISTAS *res = initLista(); 
-	listaProdNcomprados(sgv->filiais,filial,sgv->produtos,res);
-	return res;
-}
-
-LISTAS *getSGVclientesTodosFiliais(SGV *sgv){
-	LISTAS *r = listaClientesTodosFliais(sgv->filiais);
-	qsort(r->listas,r->ocup,sizeof(char *),myCompare);
-	return r;
-}
-
-int getClientesNaoCompradores(SGV *sgv){
-	return numCliNcompradores(sgv->filiais,sgv->clientes);
-}
-
-int getProdutosNaoComprados(SGV *sgv){
-	return numProdNcomprados(sgv->filiais,sgv->produtos);
-}
-
-void destroySGV(SGV *sgv){
-	freeLista(sgv->clientes);
-	freeLista(sgv->produtos);
-	freeFaturas(sgv->faturas);
-	freeFiliais(sgv->filiais);
-	free(sgv);
+	//printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));
+	fclose(file);
+	
 }

@@ -104,24 +104,3 @@ int numNodos(AVL *node){
     return 0;
 }
 
-void freeAVL(AVL *node,void (*f) (void *)){
-	if(node){
-		free(node->key);
-		for(int i = 0;i<node->numElemts-1;i++)
-			f(node->str[i]);
-		free(node->str);
-		freeAVL(node->right,f);
-		freeAVL(node->left,f);
-		free(node);
-	}
-}
-
-void freeAVLsimple(AVL *node){
-	if(node){
-		free(node->key);
-		free(node->str);
-		freeAVLsimple(node->right);
-		freeAVLsimple(node->left);
-		free(node);
-	}
-}

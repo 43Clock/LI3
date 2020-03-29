@@ -84,7 +84,42 @@ Fatura *getFatura(Faturas *f,char *produto){
     return aux->str[0];
 }
 
-void freeFaturas(Faturas *f){
-    freeAVL(f->avlF,free);
-    free(f);
+int getSalesMes(AVL *f,int mes){
+    int r = 0;
+    if(f){
+        r+= getnumVendasFatura(f->str[0],0,mes,0)+getnumVendasFatura(f->str[0],0,mes,1);
+        return r;
+    }
+    return 0;
 }
+
+int getProductSales(Faturas *f, char *prod, int mes) {
+    return getProductSalesaux(f->avlF,prod,mes);
+}    
+
+int getProductSalesaux (AVL *f, char *prod, int mes) {
+    if(f==NULL) return 0;
+    if(strcmp(f->key,prod)==0) return getSalesMes(f,mes);      
+    else if (strcmp(f->key,prod)<0) return getProductSalesaux(f->right,prod,mes);
+    else return getProductSalesaux(f->left,prod,mes);
+}    
+
+double getProfitMes(AVL *f, int mes){
+    double r = 0;
+    if(f){
+        r+= getFaturacaoFatura(f->str[0],0,mes,0)+getFaturacaoFatura(f->str[0],0,mes,1);
+        return r;
+    }
+    return 0;
+}
+
+double getProductProfit(Faturas *f, char *prod, int mes) {
+    return getProductProfitaux(f->avlF,prod,mes);
+}    
+
+double getProductProfitaux (AVL *f, char *prod, int mes) {
+    if(f==NULL) return 0;
+    if(strcmp(f->key,prod)==0) return getProfitMes(f,mes);
+    else if (strcmp(f->key,prod)<0) return getProductProfitaux(f->right,prod,mes);
+    else return getProductProfitaux(f->left,prod,mes);      
+}    
