@@ -60,3 +60,13 @@ void freeLista(LISTAS *l){
 	free(l->listas);
 	free(l);
 }
+
+int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra) {
+    for(int i=0; i < prod->ocup; i++){
+    	if(prod->listas[i][0]==letra){
+    		if(res->ocup==res->size) reallocLista(res);
+    		addLista(res, prod->listas[i]);
+    	}
+    }
+    return res->ocup;
+}
