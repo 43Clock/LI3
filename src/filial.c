@@ -63,6 +63,7 @@ CliVendas *initCliVendas() {
 void updateCliVendas(CliVendas *vd, VENDA *v) {
     ProdCliente *aux = vd->produtos;
     int flag = 0;
+    vd->quantidades[getMesVenda(v)-1] += getQuantVenda(v);
     for (int i = 0; i < vd->ocup && !flag; i++)
         if (strcmp(aux->prod, getProdVenda(v)) == 0) {
             flag = 1;
@@ -89,6 +90,7 @@ void addVendaToFilial(VENDA *v, Filiais *f) {
     int tipo = getTipoVenda(v);
     if (!cp) {
         CliVendas *a = initCliVendas();
+        a->quantidades[getMesVenda(v)-1]+= getQuantVenda(v);
         ProdCliente *p = initProdCliente(v);
         a->produtos = malloc(sizeof(struct prodCliente));
         a->produtos[a->ocup++] = *p;
@@ -105,6 +107,7 @@ void addVendaToFilial(VENDA *v, Filiais *f) {
         }
         else {
             CliVendas *a = (CliVendas *)aux->str;
+            a->quantidades[getMesVenda(v)-1]+= getQuantVenda(v);
             ProdCliente *p = initProdCliente(v);
             a->produtos = realloc(a->produtos, (a->ocup + 1) * sizeof(struct prodCliente));
             a->produtos[a->ocup++] = *p;
