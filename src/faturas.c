@@ -29,7 +29,7 @@ void addVendaToFaturas(Faturas *f,VENDA *v){
 	}
 	else{
         Fatura *fats = getFatura(f,produto);
-		addFat(aux->str[0],v);
+		addFat(aux->str,v);
         fats = getFatura(f,produto);
 	}
 }
@@ -37,7 +37,7 @@ void addVendaToFaturas(Faturas *f,VENDA *v){
 double calculaFatMes(AVL *f,int mes){
     double r = 0;
     if(f){
-        r+= getFaturacaoFatura(f->str[0],0,mes+1,0)+getFaturacaoFatura(f->str[0],0,mes+1,1);
+        r+= getFaturacaoFatura(f->str,0,mes+1,0)+getFaturacaoFatura(f->str,0,mes+1,1);
         r+= calculaFatMes(f->right,mes)+calculaFatMes(f->left,mes);
         return r;
     }
@@ -47,7 +47,7 @@ double calculaFatMes(AVL *f,int mes){
 int calculaVendasMes(AVL *f,int mes){
     int r = 0;
     if(f){
-        r+= getnumVendasFatura(f->str[0],0,mes+1,0)+getnumVendasFatura(f->str[0],0,mes+1,1);
+        r+= getnumVendasFatura(f->str,0,mes+1,0)+getnumVendasFatura(f->str,0,mes+1,1);
         r+= calculaVendasMes(f->right,mes)+calculaVendasMes(f->left,mes);
         return r;
     }
@@ -81,11 +81,11 @@ Fatura *getFatura(Faturas *f,char *produto){
         if(strcmp(produto,aux->key)<0) aux = aux->left;
         else aux = aux->right;
     }
-    return aux->str[0];
+    return aux->str;
 }
 
 void freeFaturas(Faturas *f){
-    freeAVL(f->avlF,free);
+    freeAVL(f->avlF);
     free(f);
 }
 
@@ -93,7 +93,7 @@ void freeFaturas(Faturas *f){
 int getSalesMes(AVL *f,int mes){
     int r = 0;
     if(f){
-        r+= getnumVendasFatura(f->str[0],0,mes,0)+getnumVendasFatura(f->str[0],0,mes,1);
+        r+= getnumVendasFatura(f->str,0,mes,0)+getnumVendasFatura(f->str,0,mes,1);
         return r;
     }
     return 0;
@@ -113,7 +113,7 @@ int getProductSalesaux (AVL *f, char *prod, int mes) {
 double getProfitMes(AVL *f, int mes){
     double r = 0;
     if(f){
-        r+= getFaturacaoFatura(f->str[0],0,mes,0)+getFaturacaoFatura(f->str[0],0,mes,1);
+        r+= getFaturacaoFatura(f->str,0,mes,0)+getFaturacaoFatura(f->str,0,mes,1);
         return r;
     }
     return 0;

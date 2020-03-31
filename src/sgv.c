@@ -98,7 +98,7 @@ LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial){
 }
 
 LISTAS *getSGVclientesTodosFiliais(SGV *sgv){
-	LISTAS *r = listaClientesTodosFliais(sgv->filiais);
+	LISTAS *r = listaClientesTodosFliais(sgv->filiais,sgv->clientes);
 	qsort(r->listas,r->ocup,sizeof(char *),myCompare);
 	return r;
 }

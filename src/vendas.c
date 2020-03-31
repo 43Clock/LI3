@@ -103,15 +103,16 @@ VENDA* createVenda(char *linha, LISTAS *clientes, LISTAS *prodts){
 }
 
 char *getClienteVenda(VENDA *v){
-	char *aux = malloc(strlen(v->cliente)+1);
-	strcpy(aux,v->cliente);
-	return aux;
+	//char *aux = malloc(strlen(v->cliente)+1);
+	//strcpy(aux,v->cliente);
+	//return aux;
+	return strdup(v->cliente);
 }
 
 char *getProdVenda(VENDA *v){
 	//char *aux = malloc(strlen(v->prod)+1);
 	//strcpy(aux,v->prod);
-	return v->prod;
+	return strdup(v->prod);
 }
 
 int getMesVenda(VENDA *v){

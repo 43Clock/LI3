@@ -14,7 +14,7 @@ AVL* novoNode(char *key,void *inst){
 	AVL *node = (struct AVBin*)malloc(sizeof(struct AVBin));
 	node->key = strdup(key);
 	node->str = malloc(sizeof(void *));
-	node->str[0] = inst;
+	node->str = inst;
 	node->left = NULL;
 	node->right = NULL;
 	node->altura = 1;
@@ -23,11 +23,11 @@ AVL* novoNode(char *key,void *inst){
 }
 
 
-AVL* addToNode(AVL *node,void *inst){
+/*AVL* addToNode(AVL *node,void *inst){
 	node->str = realloc(node->str,sizeof(void*)*(node->numElemts+1));
 	node->str[node->numElemts++] = inst;
 	return node;
-}
+}*/
 
 AVL* rotateRight(AVL *a){
 	AVL *x = a->left;
@@ -70,7 +70,7 @@ AVL* insert(AVL *node,char *key,void *inst){
 		node->left = insert(node->left,key,inst);
 	else if(strcmp(key,node->key)>0)
 		node->right = insert(node->right,key,inst);
-	else addToNode(node,inst);
+	//else addToNode(node,inst);
 
 	node->altura = 1+MAX(altura(node->left),altura(node->right));
 
@@ -104,14 +104,14 @@ int numNodos(AVL *node){
     return 0;
 }
 
-void freeAVL(AVL *node,void (*f) (void *)){
+void freeAVL(AVL *node){
 	if(node){
 		free(node->key);
-		for(int i = 0;i<node->numElemts-1;i++)
-			f(node->str[i]);
+		//for(int i = 0;i<node->numElemts-1;i++)
+		//	f(node->str[i]);
 		free(node->str);
-		freeAVL(node->right,f);
-		freeAVL(node->left,f);
+		freeAVL(node->right);
+		freeAVL(node->left);
 		free(node);
 	}
 }
