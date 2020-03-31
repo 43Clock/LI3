@@ -1,8 +1,0 @@
-#!/bin/bash
-
-
-cd ./src
-cp *.c* /home/luis43/CLionProjects/LI3
-cd ..
-cd ./include
-cp *.h* /home/luis43/CLionProjects/LI3
