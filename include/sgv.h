@@ -25,5 +25,7 @@ LISTAS *getSGVclientesTodosFiliais(SGV *sgv);//Query 5
 int getClientesNaoCompradores(SGV *sgv);
 int getProdutosNaoComprados(SGV *sgv);
 
+Fatura **getSGVNmaisVendidos(SGV *sgv,int n);
+int getSGVquantCliQueCompraramProd(SGV *sgv,int filial,char *prod);
 
 #endif

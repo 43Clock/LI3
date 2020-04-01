@@ -18,6 +18,7 @@ int getProductSalesaux (AVL *f, char *prod, int mes);
 double getProfitMes(AVL *f, int mes);
 double getProductProfit(Faturas *f, char *prod, int mes);
 double getProductProfitaux (AVL *f, char *prod, int mes);
+Fatura **getNMaisVendidos(Faturas *f, int n);
 
 
 #endif

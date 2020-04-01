@@ -1,6 +1,7 @@
 #include "faturas.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 struct faturas {
 	double totalFatMes[12]; /**<Total faturado/mês,Tipo,Mes,Filial>*/
@@ -85,7 +86,7 @@ Fatura *getFatura(Faturas *f,char *produto){
 }
 
 void freeFaturas(Faturas *f){
-    freeAVL(f->avlF);
+    freeAVL(f->avlF,freeFatura);
     free(f);
 }
 
@@ -128,4 +129,27 @@ double getProductProfitaux (AVL *f, char *prod, int mes) {
     if(strcmp(f->key,prod)==0) return getProfitMes(f,mes);
     else if (strcmp(f->key,prod)<0) return getProductProfitaux(f->right,prod,mes);
     else return getProductProfitaux(f->left,prod,mes);      
+}
+
+Fatura **getAllFat(AVL *f,Fatura **array,int *n){
+    if(f){
+        array[*n] = cloneFatura((Fatura *)f->str);
+        *n = *n+1;
+        array = getAllFat(f->left,array,n);
+        array = getAllFat(f->right,array,n);
+    }
+    return array;
+}
+
+Fatura **getNMaisVendidos(Faturas *f, int n){
+    int size = numNodos(f->avlF);
+    int a = 0;
+    Fatura ** array = malloc(size*sizeof(Fatura *));
+    array = getAllFat(f->avlF,array,&a);
+    qsort(array,size,sizeof(Fatura *),comparaQuantFatura);
+    //printf("%s\n",getProdutoFatura(array[0]));
+    for(int i = n;i<size;i++){
+        freeFatura(array[i]);
+    }
+    return array;
 }

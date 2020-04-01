@@ -77,7 +77,7 @@ SGV *initSGV(){
 	calculaValoresFaturas(sgv->faturas);
 	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
-
+	
 
 	/*clock_t start,end;
 	start = clock();
@@ -101,6 +101,14 @@ LISTAS *getSGVclientesTodosFiliais(SGV *sgv){
 	LISTAS *r = listaClientesTodosFliais(sgv->filiais,sgv->clientes);
 	qsort(r->listas,r->ocup,sizeof(char *),myCompare);
 	return r;
+}
+
+int getSGVquantCliQueCompraramProd(SGV *sgv,int filial,char *prod){
+	return nVendaProduto(sgv->filiais,filial,prod);
+}
+
+Fatura **getSGVNmaisVendidos(SGV *sgv,int n){
+	return getNMaisVendidos(sgv->faturas,n);
 }
 
 int getClientesNaoCompradores(SGV *sgv){

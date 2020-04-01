@@ -110,7 +110,7 @@ void printTabela(const char *linhasTab[],const char *colunasTab[],int nLinhas, i
 		replicar(" ",sizeCols[0]-strlen(linhasTab[i])-1);
 		for(j = 0;j<nColunas;j++){
 			printf("| %d",dados[i][j]);
-			replicar(" ",sizeCols[j+1]-howManyDigits(dados[i][j]-1));
+			replicar(" ",sizeCols[j+1]-howManyDigits(dados[i][j])-1);
 		}
 		printf("|\n");
 		printSeparador(sizeCols,nColunas);
