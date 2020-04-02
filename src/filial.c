@@ -217,6 +217,24 @@ void filialAllCheck(Filiais * f, LISTAS * res, LISTAS * clientes) {
         }
     }
 }
+// Query 7
+int nprodClienteMes (Filiais * f, char * cliente, int mes, int filial) {
+    return nprodClienteMesAux(f->cliVendas[filial-1], cliente, mes); 
+} 
+
+int nprodClienteMesAux (AVL *f, char * cliente, int mes){
+    CliVendas *l = (CliVendas *) f->str;
+    if (f) {
+        if (strcmp (f->key, cliente) == 0) {
+            return l->quantidades[mes-1];
+        }
+        else {
+            if (strcmp (f->key, cliente) > 0) return nprodClienteMesAux (f->left, cliente, mes);
+            else return nprodClienteMesAux (f->right, cliente, mes);
+        }
+    }
+    return 0; 
+}
 
 //Função para a query 5s
 LISTAS *listaClientesTodosFliais(Filiais * f, LISTAS * clientes) { //Lista n ordenada é preciso dps usar o qsort no output

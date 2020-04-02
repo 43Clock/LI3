@@ -74,7 +74,7 @@ SGV *initSGV(){
 			nvendas++;
 		}
 	}
-	calculaValoresFaturas(sgv->faturas);
+	//calculaValoresFaturas(sgv->faturas);
 	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
 	
@@ -87,7 +87,16 @@ SGV *initSGV(){
 	end = clock();
 	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));*/
 
-	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);	
+	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);
+
+
+	/*int teste = nprodClienteMes (sgv->filiais, "A1231", 4, 3);
+	printf ("%d\n", teste);*/ // isto foi para testar a query 7
+
+	double teste1 =  totalFaturacaoIntMes (sgv->faturas, 1, 5);
+	int teste2 = totalVendasIntMes (sgv->faturas, 1, 5);
+	printf ("%d,%lf\n", teste2,teste1);
+
 	return sgv;
 }
 
@@ -117,6 +126,10 @@ int getClientesNaoCompradores(SGV *sgv){
 
 int getProdutosNaoComprados(SGV *sgv){
 	return numProdNcomprados(sgv->filiais,sgv->produtos);
+}
+
+int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial) {
+	return nprodClienteMes(sgv->filiais,cliente,mes,filial);
 }
 
 void destroySGV(SGV *sgv){
