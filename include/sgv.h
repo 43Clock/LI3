@@ -27,5 +27,6 @@ int getProdutosNaoComprados(SGV *sgv);
 
 Fatura **getSGVNmaisVendidos(SGV *sgv,int n);
 int getSGVquantCliQueCompraramProd(SGV *sgv,int filial,char *prod);
+int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial);
 
 #endif

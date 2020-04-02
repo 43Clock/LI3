@@ -15,6 +15,8 @@ LISTAS *listaClientesTodosFliais(Filiais * f, LISTAS *clientes);
 int numProdNcomprados(Filiais *f,LISTAS *prod);
 int numCliNcompradores(Filiais *f,LISTAS *clientes);
 int nVendaProduto(Filiais *f, int filial, char *prod);
+int nprodClienteMes (Filiais * f, char * cliente, int mes, int filial);
+int nprodClienteMesAux ( AVL *f, char * cliente, int mes);
 
 
 #endif
