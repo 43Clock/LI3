@@ -18,9 +18,11 @@ int main(){
 	SGV *sgv = initSGV();
 	
 	//prodNCompradosQuery(sgv);
-	//clientesTodosFilQuery(sgv);
+	/*clientesTodosFilQuery(sgv);
 	//prodEclientesNcompQuery(sgv);
 	//nMaisVendidosQuery(sgv);
 	//faturacaoAndVendasFilialQuery(sgv);
+	prodStartedByLetterQuery(sgv);*/
+	clientesMesEFilialQuery(sgv);
 	destroySGV(sgv);
 }

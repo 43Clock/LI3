@@ -87,8 +87,6 @@ SGV *initSGV(){
 	end = clock();
 	printf("%f\n",((double)(end-start)/CLOCKS_PER_SEC));*/
 
-	//printMenuPaginas(allF->clientes,clientes.ocup,15,6);
-
 
 	/*int teste = nprodClienteMes (sgv->filiais, "A1231", 4, 3);
 	printf ("%d\n", teste);*/ // isto foi para testar a query 7
@@ -98,6 +96,10 @@ SGV *initSGV(){
 	//printf ("%d,%lf\n", teste2,teste1);
 
 	return sgv;
+}
+
+LISTAS *getSGVprodStartedByLetter(SGV *sgv,char letter){
+	return getProductsStartedByLetter(sgv->produtos,letter);
 }
 
 int getSGVvendasProdutoMesFilialTipo(SGV *sgv,char *prod,int mes,int tipo,int filial){
@@ -142,6 +144,10 @@ int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial){
 
 int checkSGVprodValido(SGV *sgv,char *prod){
 	return existeNaLista(sgv->produtos,prod);
+}
+
+int checkSGVclienteValido(SGV *sgv,char *prod){
+	return existeNaLista(sgv->clientes,prod);
 }
 
 void destroySGV(SGV *sgv){

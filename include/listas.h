@@ -16,7 +16,7 @@ void reallocLista(LISTAS *lista);
 void addLista(LISTAS *lista,char *str);
 void filterStr(char *str);
 void freeLista(LISTAS *l);
-int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra);
+LISTAS *getProductsStartedByLetter(LISTAS *prod, char letra);
 int searchMatch(LISTAS *lista,int l, int r,char *str);
 int existeNaLista(LISTAS *prod,char *pr);
 

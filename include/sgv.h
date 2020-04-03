@@ -16,12 +16,13 @@ typedef struct sgv SGV;
 SGV *initSGV();
 void destroySGV(SGV *sgv);
 
+LISTAS *getSGVprodStartedByLetter(SGV *sgv,char letter);
 
 int getSGVvendasProdutoMesFilialTipo(SGV *sgv,char *prod,int mes,int tipo,int filial);
 double getSGVfaturacaoProdutosMesFilialTipo(SGV *sgv,char *prod,int mes,int tipo,int filial);
 
-LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial);//Query 4
-LISTAS *getSGVclientesTodosFiliais(SGV *sgv);//Query 5
+LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial);
+LISTAS *getSGVclientesTodosFiliais(SGV *sgv);
 
 int getClientesNaoCompradores(SGV *sgv);
 int getProdutosNaoComprados(SGV *sgv);
@@ -31,5 +32,6 @@ int getSGVquantCliQueCompraramProd(SGV *sgv,int filial,char *prod);
 int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial);
 
 int checkSGVprodValido(SGV *sgv,char *prod);
+int checkSGVclienteValido(SGV *sgv,char *prod);
 
 #endif

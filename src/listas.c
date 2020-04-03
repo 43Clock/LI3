@@ -61,14 +61,15 @@ void freeLista(LISTAS *l){
 	free(l);
 }
 
-int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra) {
-    for(int i=0; i < prod->ocup; i++){
-    	if(prod->listas[i][0]==letra){
+LISTAS *getProductsStartedByLetter(LISTAS *prod, char letra) {
+	LISTAS *res = initLista();
+    for(int i=0; i < prod->ocup && prod->listas[i][0]<=letra; i++){
+    	if(prod->listas[i][0] == letra){
     		if(res->ocup==res->size) reallocLista(res);
     		addLista(res, prod->listas[i]);
     	}
     }
-    return res->ocup;
+    return res;
 }
 
 int searchMatch(LISTAS *lista,int l, int r,char *str){

@@ -4,9 +4,26 @@
 #include <string.h>
 
 /**
+@brief DONE : Query 2
+*/
+void prodStartedByLetterQuery(SGV *sgv) {
+	char search;
+	while (1) {
+		system("clear");
+		printf(BOLDGREEN"\t\t-- Produtos começados por letra _--\n\n"RESET);
+		printf("Caracter a procurar:\n");
+		search = getchar();
+		if (search >= 'A' && search <= 'Z')
+			break;
+	}
+	LISTAS *l = getSGVprodStartedByLetter(sgv, search);
+	printMenuPaginas("Produtos começados por letra", l->listas, l->ocup, 12, 6);
+	freeLista(l);
+}
+
+/**
 @brief DONE : Query 3
 */
-
 void faturacaoAndVendasFilialQuery(SGV *sgv) {
 	char *bufferP = malloc(sizeof(char) * 32);
 	char *bufferM = malloc(sizeof(char) * 32);
@@ -18,7 +35,7 @@ void faturacaoAndVendasFilialQuery(SGV *sgv) {
 	//Ciclo para escolher o tipo
 	while (1) {
 		system("clear");
-		printf(BOLDGREEN"\t\t-- Informação produto/mês- -\n\n"RESET);
+		printf(BOLDGREEN"\t\t-- Informação produto/mês--\n\n"RESET);
 		printf( BOLDWHITE "Faturação e numero de Vendas:\n\n" RESET );
 		printf("0 - Todas as filiais\n");
 		printf("1 - Filial a Filial\n\n");
@@ -91,7 +108,7 @@ void faturacaoAndVendasFilialQuery(SGV *sgv) {
 		printf(BOLDWHITE"\tP: "RESET"%d\n", quantidade[1]);
 	}
 	else {
-		int i,j;
+		int i, j;
 		system("clear");
 		printf(BOLDGREEN"\t\t-- Informação produto/mês--\n\n"RESET);
 		printf(BOLDGREEN"Produto: " RESET "%s\n\n", bufferP);
@@ -103,8 +120,8 @@ void faturacaoAndVendasFilialQuery(SGV *sgv) {
 				faturacao[i][j] = getSGVfaturacaoProdutosMesFilialTipo(sgv, bufferP, mes, i, j + 1);
 			}
 		j = 0;
-		for (i = 0; i < 3; i++,j = 0) {
-			printf(BOLDCYAN"Filial %d:\n" RESET,i+1);
+		for (i = 0; i < 3; i++, j = 0) {
+			printf(BOLDCYAN"Filial %d:\n" RESET, i + 1);
 			printf(BOLDWHITE"Total faturado no mês %d\n"RESET, mes);
 			printf(BOLDWHITE"\tN: "RESET"%.2f\n", faturacao[j][i]);
 			j++;
@@ -172,6 +189,51 @@ void prodEclientesNcompQuery(SGV *sgv) {
 	printf(BOLDWHITE"Clientes não compradores: " RESET "%d\n", getClientesNaoCompradores(sgv));
 	printf(BOLDWHITE"Produtos não comprados  : " RESET "%d\n", getProdutosNaoComprados(sgv));
 	getchar();
+}
+
+/**
+@brief DONE : Query 7
+*/
+void clientesMesEFilialQuery(SGV *sgv) {
+	char *buffer = malloc(sizeof(char) * 32);
+	int flag = 0;
+	int filial;
+
+	//Ciclo para escolher o cliente
+	while (1) {
+		system("clear");
+		printf(BOLDGREEN"\t\t-- Informação de cliente por mês e filial--"RESET);
+		if (!flag) {
+			printf("\n\n");
+		}
+		else {
+			printf(BOLDRED "\n\nCliente Invalido\n\n"RESET);
+		}
+		printf("Inserir Cliente a procurar: \n");
+		fgets(buffer, 10, stdin);
+		if (strtok(buffer, "\n")) {
+			if (checkSGVclienteValido(sgv, buffer)) {
+				flag = 0;
+				break;
+			}
+			else flag = 1;
+		}
+	}
+	int quantidades[3][12];
+	for(int i = 0;i<3;i++)
+		for(int j = 0;j<12;j++)
+			quantidades[i][j] = getSGVNProdClienteMes(sgv,buffer,j+1,i+1);
+	system("clear");
+	printf(BOLDGREEN"\t\t-- Informação do cliente %s--\n\n"RESET,buffer);
+	printTabela((const char*[]){"Filial 1","Filial 2","Filial 3"}, (const char *[]) {
+		"JAN","FEV",
+		"MAR","ABR",
+		"MAI","JUN",
+		"JUL","AGO",
+		"SET","OUT",
+		"NOV","DEZ",
+	}, 3, 12, quantidades);
+
 }
 
 /**
