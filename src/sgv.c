@@ -77,7 +77,7 @@ SGV *initSGV(){
 	//calculaValoresFaturas(sgv->faturas);
 	//printf("%f\n",calculaTotalFaturado(sgv->faturas));
 	fclose(file);
-	
+
 
 	/*clock_t start,end;
 	start = clock();
@@ -93,11 +93,19 @@ SGV *initSGV(){
 	/*int teste = nprodClienteMes (sgv->filiais, "A1231", 4, 3);
 	printf ("%d\n", teste);*/ // isto foi para testar a query 7
 
-	double teste1 =  totalFaturacaoIntMes (sgv->faturas, 1, 5);
-	int teste2 = totalVendasIntMes (sgv->faturas, 1, 5);
-	printf ("%d,%lf\n", teste2,teste1);
+	//double teste1 =  totalFaturacaoIntMes (sgv->faturas, 1, 12);
+	//int teste2 = totalVendasIntMes (sgv->faturas, 1, 12);
+	//printf ("%d,%lf\n", teste2,teste1);
 
 	return sgv;
+}
+
+int getSGVvendasProdutoMesFilialTipo(SGV *sgv,char *prod,int mes,int tipo,int filial){
+	return getProductSales(sgv->faturas,prod,mes,tipo,filial);
+}
+
+double getSGVfaturacaoProdutosMesFilialTipo(SGV *sgv,char *prod,int mes,int tipo,int filial){
+	return getProductProfit(sgv->faturas,prod,mes,tipo,filial);
 }
 
 LISTAS *getSGVprodutosNComprados(SGV *sgv,int filial){
@@ -128,8 +136,12 @@ int getProdutosNaoComprados(SGV *sgv){
 	return numProdNcomprados(sgv->filiais,sgv->produtos);
 }
 
-int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial) {
+int getSGVNProdClienteMes (SGV *sgv, char *cliente, int mes, int filial){
 	return nprodClienteMes(sgv->filiais,cliente,mes,filial);
+}
+
+int checkSGVprodValido(SGV *sgv,char *prod){
+	return existeNaLista(sgv->produtos,prod);
 }
 
 void destroySGV(SGV *sgv){

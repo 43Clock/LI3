@@ -217,6 +217,7 @@ void filialAllCheck(Filiais * f, LISTAS * res, LISTAS * clientes) {
         }
     }
 }
+
 // Query 7
 int nprodClienteMes (Filiais * f, char * cliente, int mes, int filial) {
     return nprodClienteMesAux(f->cliVendas[filial-1], cliente, mes); 

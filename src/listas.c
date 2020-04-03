@@ -70,3 +70,17 @@ int getProductsStartedByLetter(LISTAS *prod, LISTAS *res, char letra) {
     }
     return res->ocup;
 }
+
+int searchMatch(LISTAS *lista,int l, int r,char *str){
+	while(l<=r){
+		int m = l +(r-l)/2;
+		if(strcmp(lista->listas[m],str) == 0) return m;
+		if(strcmp(lista->listas[m],str)<0) l = m+1;
+		else r =m-1;
+	}
+	return -1;
+}
+
+int existeNaLista(LISTAS *prod,char *pr){
+	return searchMatch(prod,0,prod->ocup-1,pr)>0;
+}

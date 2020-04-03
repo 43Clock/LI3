@@ -48,7 +48,7 @@ void printMenuPaginas(char *titulo,char **str,int total,int nLinhas,int nColunas
 	int nPaginas = (total%(nLinhas*nColunas))?(total/(nLinhas*nColunas)):total/(nColunas*nLinhas)-1;
 	while(1){
 		system("clear");
-		printf(BOLDWHITE "\t-- %s --\n\n" RESET,titulo); 
+		printf(BOLDGREEN "\t-- %s --\n\n" RESET,titulo); 
 		printf("Total: %d\n",total);
 		printStrings(str,total,nLinhas,nColunas,page);
 		printf("\t%d/%d [(n)ext/(p)revious/(b)ack)]\n",page+1,nPaginas+1);

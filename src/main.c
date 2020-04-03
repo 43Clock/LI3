@@ -20,6 +20,7 @@ int main(){
 	//prodNCompradosQuery(sgv);
 	//clientesTodosFilQuery(sgv);
 	//prodEclientesNcompQuery(sgv);
-	nMaisVendidosQuery(sgv);
+	//nMaisVendidosQuery(sgv);
+	//faturacaoAndVendasFilialQuery(sgv);
 	destroySGV(sgv);
 }

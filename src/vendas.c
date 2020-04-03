@@ -27,16 +27,6 @@ void reallocVendas(VENDAS *vendas){
 	vendas->size *= 2;
 }
 
-int searchMatch(LISTAS *lista,int l, int r,char *str){
-	while(l<=r){
-		int m = l +(r-l)/2;
-		if(strcmp(lista->listas[m],str) == 0) return m;
-		if(strcmp(lista->listas[m],str)<0) l = m+1;
-		else r =m-1;
-	}
-	return -1;
-}
-
 
 void addVenda(VENDAS *vendas,char *linha, LISTAS *clientes, LISTAS *prodts){
 	char *prod,*cliente,tipo,*p;

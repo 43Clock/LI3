@@ -1,24 +1,28 @@
 #include "vendas.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
-#define MAX(a,b) a>b? a:b;
+int max(int a, int b){  
+    return (a > b)? a : b;  
+}
 
 
 int altura (AVL *a){
-	return a? a->altura:0;
+	if (a == NULL)  
+        return 0;  
+    return a->altura;
 }
 
 AVL* novoNode(char *key,void *inst){
 	AVL *node = (struct AVBin*)malloc(sizeof(struct AVBin));
-	node->key = strdup(key);
+	node->key = key;
 	node->str = malloc(sizeof(void *));
 	node->str = inst;
 	node->left = NULL;
 	node->right = NULL;
 	node->altura = 1;
-	node->numElemts = 1;
 	return node;
 }
 
@@ -29,38 +33,36 @@ AVL* novoNode(char *key,void *inst){
 	return node;
 }*/
 
-AVL* rotateRight(AVL *a){
-	AVL *x = a->left;
-	AVL *y = x->right;
+AVL *rotateRight(AVL *y)  
+{  
+    AVL *x = y->left;  
+    AVL *T2 = x->right;  
 
-	//Fazer a rotação
-	x->right = a;
-	a->left = y;
+    x->right = y;  
+    y->left = T2;  
+  
+    y->altura = max(altura(y->left),altura(y->right)) + 1;  
+    x->altura = max(altura(x->left),altura(x->right)) + 1;  
+   
+    return x;  
+}  
 
-	//Alterar as alturas
-	a->altura = MAX(altura(a->left),altura(a->right))+1;
-	x->altura = MAX(altura(x->left),altura(x->right))+1;
+AVL* rotateLeft(AVL *x)  {  
+    AVL *y = x->right;  
+    AVL *T2 = y->left;  
 
-	return x;
-}
-
-AVL* rotateLeft(AVL *a){
-	AVL *x = a->left;
-	AVL *y = x->right;
-
-	//Fazer a rotação
-	x->left = a;
-	a->right = y;
-
-	//Alterar as alturas
-	a->altura = MAX(altura(a->left),altura(a->right))+1;
-	x->altura = MAX(altura(x->left),altura(x->right))+1;
-
-	return x;
+    y->left = x;  
+    x->right = T2;  
+ 
+    x->altura = max(altura(x->left),altura(x->right)) + 1;  
+    y->altura = max(altura(y->left),altura(y->right)) + 1;   
+    return y;  
 }
 
 int getBalance(AVL *a){
-	return a? altura(a->left)-altura(a->right):0;
+	if (a == NULL)  
+        return 0;  
+    return altura(a->left) - altura(a->right);
 }
 
 AVL* insert(AVL *node,char *key,void *inst){
@@ -71,8 +73,8 @@ AVL* insert(AVL *node,char *key,void *inst){
 	else if(strcmp(key,node->key)>0)
 		node->right = insert(node->right,key,inst);
 	//else addToNode(node,inst);
-
-	node->altura = 1+MAX(altura(node->left),altura(node->right));
+	
+	node->altura = 1+max(altura(node->left),altura(node->right));
 
 	int balance = getBalance(node);
 
@@ -80,11 +82,11 @@ AVL* insert(AVL *node,char *key,void *inst){
 		return rotateRight(node);
 	if(balance<-1 && strcmp(key,node->right->key)>=0)
 		return rotateLeft(node);
-	if(balance >1 && strcmp(key,node->right->key)>=0){
+	if(balance >1 && strcmp(key,node->left->key)>=0){
 		node->left = rotateLeft(node->left);
 		return rotateRight(node);
 	}
-	if(balance <-1 && strcmp(key,node->left->key)<0){
+	if(balance <-1 && strcmp(key,node->right->key)<0){
 		node->right = rotateRight(node->right);
 		return rotateLeft(node);
 	}

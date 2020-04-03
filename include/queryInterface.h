@@ -10,5 +10,6 @@ void prodNCompradosQuery(SGV *sgv);
 void clientesTodosFilQuery(SGV *sgv);
 void prodEclientesNcompQuery(SGV *sgv);
 void nMaisVendidosQuery(SGV *sgv);
+void faturacaoAndVendasFilialQuery(SGV *sgv);
 
 #endif

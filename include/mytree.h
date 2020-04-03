@@ -7,7 +7,6 @@ typedef struct AVBin {
     struct AVBin *left; 
     struct AVBin *right; 
     int altura;
-    int numElemts;
 }AVL;
 
 AVL* insert(AVL *node,char *key,void *inst);
